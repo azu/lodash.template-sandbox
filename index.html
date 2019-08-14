@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lodash.template sandbox</title>
+    <style>
+        .input {
+            width: 100%;
+            height: 30em;
+            margin: 0.5em 4em;
+            font-size: 24px;
+        }
+
+        .output {
+            width: 100%;
+            height: 30em;
+            margin: 0.5em 4em;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+<div id="js-main">
+    <textarea class="input" v-model="message" placeholder="input lodash.template"></textarea>
+    <br>
+    <div class="output" v-html="compiled"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"
+        integrity="sha256-VeNaFBVDhoX3H+gJ37DpT/nTuZTdjYro9yBruHjVmoQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#js-main',
+        data: {
+            message: 'hello <%= 1 + 1 %>!',
+        },
+        computed: {
+            compiled: vm => {
+                try {
+                    const compiled = _.template(vm.message);
+                    return compiled();
+                } catch (error) {
+                    return error;
+                }
+            }
+        }
+    })
+
+</script>
+</body>
+</html>
